@@ -3,19 +3,62 @@ import java.util.Scanner;
 class Employee
 {
 	/* Task 3B: Add instance variables */
-  
-   
+	private String firstName;
+	private String lastName;
+	private int employeeId;
+	private double salary;
+	
 	/* Task 3C: Add three constructors */
+	public Employee()
+	{
+	}		
+	public Employee( String last, String first )
+	{
+		lastName = last;
+		firstName = first;
+	}
+	public Employee( String last, String first, int id, double wage )
+	{
+		lastName = last;
+		firstName = first;
+		employeeId = id;
+		salary = wage;
+	}
    
-   
-	/* Task 3D: Add set (mutator) and get (accessor) meethods
-
+	/* Task 3D: Add set (mutator) and get (accessor) methods */
+	public void setLast( String newLast ){ this.lastName = newLast; }
+	public void setFirst( String newFirst ){ this.firstName = newFirst; }
+	public void setEmployeeId( int newId ){ this.employeeId = newId; }
+	public void setSalary( double newSalary )
+	{
+		if ( newSalary < 0 )
+			this.salary = 0.0;
+		else
+			this.salary = newSalary; 
+	}
+	
+	public String getLast() { return lastName; }
+	public String getFirst() { return firstName; }
+	public int getEmployeeId() { return employeeId; }
+	public double getSalary() { return salary; }
    
 	/* Task 3F: Add toString method */
-   
+	public String toString()
+	{
+		String message;
+		
+		message = String.format( "Last Name: %s; First Name: %s; Employee Id: %d; Salary: %.2f\n", this.lastName, this.firstName, this.employeeId, this.salary );
+		return message;
+	}
    
 	/* Task 3G: Add equals method */
-   
+	public boolean equals( String name )
+	{
+		if ( this.lastName == name )
+			return true;
+		else
+			return false;
+	}   
 }
 
 
@@ -26,13 +69,13 @@ public class EmployeeApp
 	public static void main(String[] args) 
 	{
 		Scanner keyboard = new Scanner( System.in );
-		Employee[]  employees = new Employee[MAX_EMPLOYEES];
-		Employee    currentEmployee;
-		String      inputString;
-		int         inputInt;
-		double      inputDouble;
-		char        choice;
-		int         empCount=0;
+		Employee[] employees = new Employee[MAX_EMPLOYEES];
+		Employee currentEmployee;
+		String inputString;
+		int inputInt;
+		double inputDouble;
+		char choice;
+		int empCount=0;
       
 		employees[empCount++] = new Employee( "Mitchum", "Robert", 120402, 34000.0 );
 		employees[empCount++] = new Employee( "Ryan", "Cornelius" );
@@ -60,7 +103,17 @@ public class EmployeeApp
                 
 						// Task 3E: Prompt for user information and set the object 
 						// parameters via the mutator methods
-
+						System.out.print( "Enter Last Name: " );
+						employees[empCount].setLast( keyboard.nextLine() );
+						
+						System.out.print( "Enter First Name: " );
+						employees[empCount].setFirst( keyboard.nextLine() );
+						
+						System.out.print( "Enter Employee ID: " );
+						employees[empCount].setEmployeeId( keyboard.nextInt() );
+						
+						System.out.print( "Enter Salary: " );
+						employees[empCount].setSalary( keyboard.nextDouble() );
    
 						empCount++;
 					}
@@ -75,9 +128,12 @@ public class EmployeeApp
 						// Verify that the employee entry has been allocated before Editing
 						if ( employees[lp] != null )
 						{
-							if ( employees[lp].equals( inputString ) == true )
+							//if ( employees[lp].equals( inputString ) == true ) is the original code in this section
+							//this compares the references of an Employee object and a String object, which will never be equal
+							//to compare two Strings as was originally intended, we should instead use the statement below
+							if ( employees[lp].getLast().equals( inputString ) == true )
 							{
-								System.out.print( "Enter Employee ID    : " );
+								System.out.print( "Enter Employee ID: " );
 								inputInt = keyboard.nextInt();
 								employees[lp].setEmployeeId( inputInt );
                   
