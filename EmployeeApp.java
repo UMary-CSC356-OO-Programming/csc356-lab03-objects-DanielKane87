@@ -54,7 +54,7 @@ class Employee
 	/* Task 3G: Add equals method */
 	public boolean equals( String name )
 	{
-		if ( this.lastName == name )
+		if ( this.lastName.equals(name) )
 			return true;
 		else
 			return false;
@@ -128,10 +128,7 @@ public class EmployeeApp
 						// Verify that the employee entry has been allocated before Editing
 						if ( employees[lp] != null )
 						{
-							//if ( employees[lp].equals( inputString ) == true ) is the original code in this section
-							//this compares the references of an Employee object and a String object, which will never be equal
-							//to compare two Strings as was originally intended, we should instead use the statement below
-							if ( employees[lp].getLast().equals( inputString ) == true )
+							if ( employees[lp].equals( inputString ) == true )
 							{
 								System.out.print( "Enter Employee ID: " );
 								inputInt = keyboard.nextInt();
